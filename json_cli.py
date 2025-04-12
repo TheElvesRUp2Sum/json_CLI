@@ -6,6 +6,7 @@ Date: September 15 2024
 
 import json
 from typing import Iterable
+import os
 
 class JsonLevel:
     """
@@ -91,6 +92,11 @@ def json_explore(file_path: str) -> None:
     print("Q to quit")
     print("^ to go up")
     print("key value to go into\n")
+
+    # Check if file exists
+    if not os.path.isfile(file_path):
+        print("File does not exist")
+        return
 
     with open(file_path, 'r') as f:  # open json file as dictionary d
         json_file = f
