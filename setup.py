@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="json_CLI",
-    version="1.0.0",
+    version="1.0.1",
     author="Matthew Raburn",
     description="A package for searching through JSONs via CLI",
     packages=find_packages(),
