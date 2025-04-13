@@ -98,9 +98,9 @@ def json_explore(file_path: str) -> None:
         print("File does not exist")
         return
 
-    with open(file_path, 'r') as f:  # open json file as dictionary d
-        json_file = f
-        level = json.load(json_file)
+    with open(file_path, 'rb') as f:  # open json file as dictionary d
+        json_file = f.read()
+        level = json.loads(json_file)
 
     json_object = JsonLevel(level)  # create the json level object with no name cause it begins at the top level
 
@@ -121,7 +121,10 @@ def json_explore(file_path: str) -> None:
                 continue
         else:
             if isinstance(level.level_object, list):  # if level object is a list then convert i to int
-                i = int(i)
+                try:
+                    i = int(i)
+                except ValueError:
+                    continue
 
             # Check to see if level object is a dictionary
             # then check to see if input from user matches a key
