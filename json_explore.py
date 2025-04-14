@@ -83,7 +83,7 @@ class JsonLevel:
         return None
 
 
-def json_explore(file_path: str) -> None:
+def json_explore_fp(file_path: str) -> None:
     """
     Lets the user explore a json
     :param file_path: file path to json
@@ -102,7 +102,17 @@ def json_explore(file_path: str) -> None:
         json_file = f.read()
         level = json.loads(json_file)
 
-    json_object = JsonLevel(level)  # create the json level object with no name cause it begins at the top level
+    json_explore_json(level)
+
+
+def json_explore_json(json_dict: dict) -> None:
+
+    print("Q to quit")
+    print("^ to go up")
+    print("Type key string or element number to go into lower level\n")
+
+
+    json_object = JsonLevel(json_dict)  # create the json level object with no name cause it begins at the top level
 
     json_list: list[JsonLevel] = [json_object]  # create a list of json levels. This keeps track of the level
 
@@ -130,13 +140,28 @@ def json_explore(file_path: str) -> None:
             # then check to see if input from user matches a key
             # lastly only append the value of the key if it is a list or a dictionary
             if isinstance(level.level_object, dict):
-                if i in level.level_object and (isinstance(level.level_object[i], dict) or isinstance(level.level_object[i], list)):
-                    json_list.append(JsonLevel(level[i],i))  # appends the new level to the json_list stack as a dictionary level
+                if i in level.level_object and (
+                        isinstance(level.level_object[i], dict) or isinstance(level.level_object[i], list)):
+                    json_list.append(
+                        JsonLevel(level[i], i))  # appends the new level to the json_list stack as a dictionary level
 
             # Check to see if level object is a list
             # then check to see if the index is actually found in the list
             # lastly only append the value of the element if it is a list or a dictionary
             else:
-                if i in range(len(level.level_object)) and (isinstance(level.level_object[i], list) or isinstance(level.level_object[i], dict)):
+                if i in range(len(level.level_object)) and (
+                        isinstance(level.level_object[i], list) or isinstance(level.level_object[i], dict)):
                     # appends the new level to the json_list stack as a list level
-                    json_list.append(JsonLevel(level.level_object[i],i))
+                    json_list.append(JsonLevel(level.level_object[i], i))
+
+def json_explore():
+    """
+    Entry Point if ran via CLI
+    :return:
+    """
+    import sys
+    if len(sys.argv) == 2:
+        json_explore_fp(sys.argv[1])
+    else:
+        print("Please provide a path to a JSON file")
+        print("Usage: json-explore <path_to_json_file>")
