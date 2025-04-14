@@ -18,14 +18,14 @@ full_description = long_description + "\n\n" + release_notes
 
 setup(
     name="json-explore",
-    version="2.0.0",
+    version="2.0.1",
     author="Matthew Raburn",
     description="A lightweight CLI tool for interactively exploring JSON files and dictionaries.",
     long_description=full_description,
     long_description_content_type="text/markdown",
     url="https://github.com/mlraburn/json-CLI",
     project_urls={
-        "Source Code": "https://github.com/mlraburn/json-CLI",
+        "Source Code": "https://github.com/mlraburn/json_CLI",
     },
     packages=find_packages(),
     py_modules=["json_explore"],  # The name of the Python file without .py
